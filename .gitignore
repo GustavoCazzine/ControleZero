@@ -1,2 +1,8 @@
-# Environments
-.venv
+# Ambiente Virtual
+.venv/
+
+# Cache do Python
+__pycache__/
+
+# Bancos de Dados SQLite
+*.db
