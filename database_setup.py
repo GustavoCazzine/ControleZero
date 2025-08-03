@@ -1,7 +1,7 @@
 import sqlite3
 
-banco_de_dados = sqlite3.connect("controlezero.db")
-cursor = banco_de_dados.cursor()
+with sqlite3.connect('controlezero.db') as banco_de_dados:
+    cursor = banco_de_dados.cursor()
 
 cursor.execute(
     "CREATE TABLE IF NOT EXISTS transacoes (id INTEGER PRIMARY KEY AUTOINCREMENT," \
@@ -14,6 +14,3 @@ cursor.execute(
             "INSERT INTO transacoes (descricao, valor, categoria) VALUES (?, ?, ?)",
             ("Pratos", 60, "Utensílios de cozinha")
         )"""
-
-
-banco_de_dados.commit()
