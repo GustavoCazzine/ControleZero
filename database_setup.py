@@ -10,4 +10,10 @@ cursor.execute(
     "categoria TEXT NOT NULL)"
     )
 
+"""cursor.execute(
+            "INSERT INTO transacoes (descricao, valor, categoria) VALUES (?, ?, ?)",
+            ("Pratos", 60, "Utensílios de cozinha")
+        )"""
+
+
 banco_de_dados.commit()

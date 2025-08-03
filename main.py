@@ -1,12 +1,5 @@
-from core.transacoes import adicionar_transacao
+from core.transacoes import adicionar_transacao, listar_todas_transacoes, calcular_saldo_total
 from core.utils import limpar_tela, titulo, listar_menu, escolher_opcao, obter_input_vazio, obter_input_float, pausa_segundos
-
-# Lista inicial de transações para teste
-lista_de_transacoes = [
-    {"descricao": "carvão", "valor": 45, "categoria": "churrasco"},
-    {"descricao": "Aluguel", "valor": 750, "categoria": "Moradia"},
-    {"descricao": "Halls", "valor": 1.50, "categoria": "Doces"}
-]
 
 def main():
     while True:
@@ -27,12 +20,16 @@ def main():
                 descricao = obter_input_vazio("Descrição: ").lower()
                 valor = obter_input_float("Valor: ")
                 categoria = obter_input_vazio("Categoria: ").lower()
-                lista_de_transacoes.append(adicionar_transacao(descricao, valor, categoria))
-                print(f"\n{descricao.capitalize()} - R${valor:.2f} - {categoria.capitalize()} | ✅")
-                pausa_segundos(2)
+                confirmação_db = adicionar_transacao(descricao, valor, categoria)
+                if confirmação_db:
+                    print(f"\n{descricao.capitalize()} - R${valor:.2f} - {categoria.capitalize()} | ✅")
+                else:
+                    print("Erro inesperado! Tente novamente.")
+                    pausa_segundos(2)
             case 2:
                 limpar_tela()
                 titulo("Listar Transações")
+                lista_de_transacoes = listar_todas_transacoes()
                 if not lista_de_transacoes:
                     print("\nNenhum registro encotrado!")
                     pausa_segundos(2)
@@ -46,7 +43,7 @@ def main():
             case 3:
                 limpar_tela()
                 titulo("Saldo Total")
-                saldo_total = sum(transacao["valor"] for transacao in lista_de_transacoes)
+                saldo_total = calcular_saldo_total()
                 print(f"Saldo total: R${saldo_total:.2f}")
                 input("\nAperte Enter para continuar...")
                 pausa_segundos(1)
